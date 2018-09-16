@@ -23,11 +23,11 @@ public class MyFileReader {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//---------------------------------------------------
-		for(int i = 0; i < categories.size(); i++){
-			System.out.println(categories.get(i));             // added to print the categories in test class
-		}
-		//---------------------------------------------------
+		//----------------------------------------------------
+		for(int i = 0; i < categories.size(); i++){		   //
+			System.out.println(categories.get(i));        // added to print the categories in the main class
+		}												 //
+		//------------------------------------------------
 	}
 	
 	public void fillWords(String category, ArrayList<String> words){

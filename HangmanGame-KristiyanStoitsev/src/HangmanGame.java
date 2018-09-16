@@ -12,17 +12,21 @@ public class HangmanGame {
 		String category;
 		Scanner userInput = new Scanner(System.in);
 		Random random = new Random();
+		boolean gameIsRunning = true;
+		boolean wordIsGuessed = false;
+		int attempts = 10;
+		int score = 0;
 		
 //		try{
 //			MyFileReader2 mfr = new MyFileReader2(categories);
 //			mfr.fillWords(category, words);
-////			mfr.printArrayLists(categories, words);            ---------------------> Testing to see what is in the arraylists
+//			mfr.printArrayLists(categories, words);            //Testing to see what is in the arraylists
 //		}catch (Exception e) {
 //			// TODO: handle exception
 //			e.printStackTrace();
 //		}
 		
-//		System.out.println("\nPrinting from test class\n");        ---------------------> testing the arraylists in this class
+//		System.out.println("\nPrinting from test class\n");   // Testing the arraylists in this class
 //		for(int i = 0; i < categories.size(); i++){
 //			System.out.println(categories.get(i));
 //		}
@@ -31,14 +35,17 @@ public class HangmanGame {
 //		}
 		
 		
-		boolean gameIsRunning = true;
-		boolean wordIsGuessed = false;
-		int attempts = 10;
-		int score = 0;
+		
 		while(gameIsRunning){
 			System.out.println("Please choose a category: ");
 			MyFileReader mfr = new MyFileReader(categories);
-			category = userInput.nextLine();
+			category = userInput.nextLine(); // changed from [category = userInput.nextLine();]
+			
+			while(!checkIfCategoryExists(categories,category)){
+				category = userInput.nextLine();
+				checkIfCategoryExists(categories,category);
+			}
+			
 			mfr.fillWords(category, words);
 			
 			char[] randomWordToGuess = words.get(random.nextInt(words.size())).toLowerCase().toCharArray();
@@ -52,7 +59,7 @@ public class HangmanGame {
                 }
             }
             
-//            for(int i = 0; i < randomWordToGuess.length; i++){  //----------------------> testing the random word and the player guess
+//            for(int i = 0; i < randomWordToGuess.length; i++){  // Testing the random word
 //            	System.out.print(randomWordToGuess[i]);
 //            }
             
@@ -97,6 +104,20 @@ public class HangmanGame {
 			wordIsGuessed = false;
 			attempts = 10;
 		}
+	}
+	
+	public static boolean checkIfCategoryExists(ArrayList<String> categories, String category){
+		for(int i = 0; i < categories.size(); i++){
+			if(category.toLowerCase().equals(categories.get(i).toLowerCase())){
+				return true;
+			}
+		}
+			System.out.println("\nThe category you have entered does NOT exist.\nPlease choose a valid category:");
+			for(int i = 0; i < categories.size(); i++){
+				System.out.println(categories.get(i));
+			}
+			return false;
+		
 	}
 	
 	public static boolean isTheWordGuessed(char[] array){
