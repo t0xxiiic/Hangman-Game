@@ -42,9 +42,14 @@ public class HangmanGame {
 			MyFileReader mfr = new MyFileReader(categories);
 			category = userInput.nextLine(); 
 			
-			while(!categoryDoesntExist){ 
-				checkIfCategoryExists(categories,category, categoryDoesntExist);
-				category = userInput.nextLine();
+			while(!categoryDoesntExist){
+				if(checkIfCategoryExists(categories,category)){
+					categoryDoesntExist = checkIfCategoryExists(categories,category);
+				}else{
+					category = userInput.nextLine();
+				}
+//				categoryDoesntExist = checkIfCategoryExists(categories,category);
+//				category = userInput.nextLine();
 			}
 			
 			mfr.fillWords(category, words);
@@ -107,17 +112,17 @@ public class HangmanGame {
 		}
 	}
 	
-	public static boolean checkIfCategoryExists(ArrayList<String> categories, String category, boolean categoryDoesntExist){
+	public static boolean checkIfCategoryExists(ArrayList<String> categories, String category){ // changed -, boolean categoryDoesntExist
 		for(int i = 0; i < categories.size(); i++){
 			if(category.toLowerCase().equals(categories.get(i).toLowerCase())){
-				return categoryDoesntExist = true;
+				return true; // changed from  return categoryDoesntExist = true;
 			}
 		}
 			System.out.println("\nThe category you have entered does NOT exist.\nPlease choose a valid category:");
 			for(int i = 0; i < categories.size(); i++){
 				System.out.println(categories.get(i));
 			}
-			return categoryDoesntExist = false;
+			return false; // changed from  return categoryDoesntExist = false;
 		
 	}
 	
