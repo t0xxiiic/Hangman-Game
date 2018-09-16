@@ -14,13 +14,14 @@ public class HangmanGame {
 		Random random = new Random();
 		boolean gameIsRunning = true;
 		boolean wordIsGuessed = false;
+		boolean categoryDoesntExist = false;
 		int attempts = 10;
 		int score = 0;
 		
-//		try{
+//		try{												   //Testing to see what is in the arraylists
 //			MyFileReader2 mfr = new MyFileReader2(categories);
 //			mfr.fillWords(category, words);
-//			mfr.printArrayLists(categories, words);            //Testing to see what is in the arraylists
+//			mfr.printArrayLists(categories, words);            
 //		}catch (Exception e) {
 //			// TODO: handle exception
 //			e.printStackTrace();
@@ -39,11 +40,11 @@ public class HangmanGame {
 		while(gameIsRunning){
 			System.out.println("Please choose a category: ");
 			MyFileReader mfr = new MyFileReader(categories);
-			category = userInput.nextLine(); // changed from [category = userInput.nextLine();]
+			category = userInput.nextLine(); 
 			
-			while(!checkIfCategoryExists(categories,category)){
+			while(!categoryDoesntExist){ 
+				checkIfCategoryExists(categories,category, categoryDoesntExist);
 				category = userInput.nextLine();
-				checkIfCategoryExists(categories,category);
 			}
 			
 			mfr.fillWords(category, words);
@@ -59,7 +60,7 @@ public class HangmanGame {
                 }
             }
             
-//            for(int i = 0; i < randomWordToGuess.length; i++){  // Testing the random word
+//            for(int i = 0; i < randomWordToGuess.length; i++){     // Testing the random word
 //            	System.out.print(randomWordToGuess[i]);
 //            }
             
@@ -106,17 +107,17 @@ public class HangmanGame {
 		}
 	}
 	
-	public static boolean checkIfCategoryExists(ArrayList<String> categories, String category){
+	public static boolean checkIfCategoryExists(ArrayList<String> categories, String category, boolean categoryDoesntExist){
 		for(int i = 0; i < categories.size(); i++){
 			if(category.toLowerCase().equals(categories.get(i).toLowerCase())){
-				return true;
+				return categoryDoesntExist = true;
 			}
 		}
 			System.out.println("\nThe category you have entered does NOT exist.\nPlease choose a valid category:");
 			for(int i = 0; i < categories.size(); i++){
 				System.out.println(categories.get(i));
 			}
-			return false;
+			return categoryDoesntExist = false;
 		
 	}
 	
