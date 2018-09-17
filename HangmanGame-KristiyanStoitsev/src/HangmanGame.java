@@ -109,6 +109,7 @@ public class HangmanGame {
 			words.clear();
 			wordIsGuessed = false;
 			attempts = 10;
+			categoryDoesntExist = false;
 		}
 	}
 	
